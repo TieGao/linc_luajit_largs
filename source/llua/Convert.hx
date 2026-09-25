@@ -42,7 +42,11 @@ class Convert {
 					Lua.settable(l, -3);
 				}
 			default:
+				// 必须压一个 nil 保持栈平衡：调用方按「已压入 1 个返回值」计数
+				// （callback_handler 拿到非 null 返回值后 return 1），表构造里也紧接着
+				// settable(-3)。不压栈会让 Lua 栈错位、回调取到脏值。
 				Sys.println('Couldn\'t convert "${Type.typeof(val)}" to Lua.');
+				Lua.pushnil(l);
 		}
 	}
 

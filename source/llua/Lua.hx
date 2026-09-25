@@ -223,7 +223,7 @@ class Lua_helper {
 		return true;
 	}
 
-	public function remove_callback(L:cpp.RawPointer<Lua_State>, key:String) {
+	public static function remove_callback(L:cpp.RawPointer<Lua_State>, key:String) {
 		if (L == null)
 			return;
 
