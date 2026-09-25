@@ -239,13 +239,6 @@ class Lua_helper {
 		hxluajit.Lua.setglobal(L, key);
 	}
 
-	public static inline function register_hxtrace(l:State) : Void {
-
-		Lua.register_hxtrace_func(cpp.Callable.fromStaticFunction(print_function));
-		Lua.register_hxtrace_lib(l);
-
-	}
-
 	private static function callback_handler(L:cpp.RawPointer<Lua_State>):Int {
 		if (callbacks_function != null)
 			return callbacks_function(L, hxluajit.Lua.tostring(L, hxluajit.Lua.upvalueindex(1)));
