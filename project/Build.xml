@@ -18,7 +18,10 @@
 		</section>
 
 		<section if="windows" unless="mingw || HXCPP_MINGW">
-			<lib name="${haxelib:linc_luajit}/project/luajit/lib/Windows/lua51.lib" if="HXCPP_M64" />
+			<!-- hxcpp 在 HXCPP_ARM64 时会自动置 HXCPP_M64=1，x64 分支必须排除 ARM64，
+			     否则 arm64 链接会把 x64 的 lua51.lib 链进去（LNK1112）。 -->
+			<lib name="${haxelib:linc_luajit}/project/luajit/lib/Windows/arm64/lua51.lib" if="HXCPP_ARM64" />
+			<lib name="${haxelib:linc_luajit}/project/luajit/lib/Windows/lua51.lib" if="HXCPP_M64" unless="HXCPP_ARM64" />
 		</section>
 
 		<section if="macos">
